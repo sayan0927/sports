@@ -1,0 +1,13 @@
+
+views\users
+  index 
+  new
+  user
+
+controller
+  user_controller
+
+routes
+
+welcome
+   link added to view users
