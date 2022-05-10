@@ -1,0 +1,43 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Applications</h1>
+<% if logged_in? && current_user.usertype=="user" %>
+   <%= link_to "New application", new_application_path %>
+<% end %>
+
+<% if logged_in? && current_user.usertype=="admin" %>
+   <h3>Logged in as Admin</h3>
+<% end %>
+
+<br>
+<%= link_to 'Home', welcome_path,class:"navbar-brand" %>
+<br><br>
+<% if logged_in? %>
+    <%= button_to "logout", sessions_path(current_user.id), :method=>:delete, :class=>:destroy %>
+<%end%>
+
+<br> <br>
+<div id="applications">
+  <% @applications.each do |application| %>
+    <%= render application %>
+    <br>
+  
+    
+      
+     <% if logged_in? && current_user.usertype=="admin" %>
+     <p>
+      
+      <% if application.status=="applied" %>
+         <%= link_to "Open application", edit_application_path(application) %> 
+      <% end %>
+     <%= button_to "Destroy this application", application, method: :delete %>
+    </p>
+<%end%>
+ <br>
+  <br>
+     
+    
+  <% end %>
+</div>
+
+

@@ -1,0 +1,85 @@
+<%= form_with(model: application) do |form| %>
+  <% if application.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(application.errors.count, "error") %> prohibited this application from being saved:</h2>
+
+      <ul>
+        <% application.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+ 
+
+<% if logged_in? && current_user.usertype=="user" %>
+
+      <div>
+        <%= form.label :name, style: "display: block" %>
+        <%= form.text_field :name , required: true, class: 'form-control', value: current_user.try(:fullname)  %>
+      </div>
+
+      <div>
+       <%= form.label :roll, style: "display: block" %>
+       <%= form.text_field :roll ,required: true, class: 'form-control', value: current_user.try(:roll) %>
+      </div>
+
+      <div>
+        <%= form.label :phone, style: "display: block" %>
+        <%= form.text_field :phone ,required: true, class: 'form-control', value: current_user.try(:phone) %>
+      </div>
+
+   <br>
+
+  <%= form.radio_button :selectedsport, 'Cricket Team',:checked => 'checked' %>
+  <%= form.label :selectedsport, 'Cricket Team', :value => 'cricket_team' %>
+  
+  <%= form.radio_button :selectedsport, 'Footbal Team' %>
+  <%= form.label :selectedsport, 'Footbal Team', :value => 'Footbal Team' %>
+   
+   
+   
+  <% end %>   
+
+  <br>
+  
+  
+  
+  
+  <% if logged_in? && current_user.usertype=="user" %>
+
+
+   <%#hiding checkbox %>
+  
+  <div id="divCheckbox" style="display: none;">
+    <%= form.radio_button :status, 'applied', :checked => 'checked'  %> 
+    <%= form.label :status, 'Applied', :value => 'applied' %>
+  </div>
+    
+  <% end %>
+
+  <% if logged_in? && current_user.usertype=="admin" %>
+
+
+        <%= form.label :comment, style: "display: block" %>
+        <%= form.text_field :comment %>
+
+        <br>
+        <br>
+      
+    <%= form.radio_button :status, 'accepted' %>
+  <%= form.label :status, 'Accepted', :value => 'accepted' %>
+  
+  <%= form.radio_button :status, 'rejected' %>
+  <%= form.label :status, 'Rejected', :value => 'rejected' %>
+<%end%>
+
+
+        <br>
+        <br>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

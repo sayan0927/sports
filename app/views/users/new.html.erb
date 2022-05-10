@@ -1,0 +1,51 @@
+<% if logged_in? && current_user.usertype=="admin" %>
+    <h1>Create Admin/User</h1>
+ <% else %>
+   <h1>Sign Up</h1>
+<%end%>
+
+
+<p><%= notice %></p>      <%# if username already exists error message displayed in notice #%>
+
+
+
+
+
+
+
+
+
+<%= form_for @user do |f|%>
+  <%= f.label :username%><br>
+  <%= f.text_field :username,:required => true, :minlength => 5 %><br>
+
+  <%= f.label :password%><br>
+  <%= f.password_field :password,required: true , :minlength => 5%><br>
+
+  <%= f.label :fullname%><br>
+  <%= f.text_field :fullname%><br>
+
+  <%= f.label :roll%><br>
+  <%= f.text_field :roll%><br>
+
+  <%= f.label :phone%><br>
+  <%= f.text_field :phone%><br>
+  
+  <%= f.submit %>
+
+
+<%# hiding checkbox %>
+<div id="divCheckbox" style="display: none;">
+    <%= f.radio_button :usertype, 'user', :checked => 'checked'  %> 
+  <%= f.label :usertype, 'User', :value => 'user' %>
+
+  </div>
+
+
+  
+  <% if logged_in? && current_user.usertype=="admin" %>
+    <%= f.radio_button :usertype, 'admin' %>
+  <%= f.label :usertype, 'Admin', :value => 'admin' %>
+<%end%>
+  
+<%end%>
